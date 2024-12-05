@@ -1,28 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import OwnPC from "./components/OwnPC";
+
 import SuggestedPC from "./components/SuggestedPC";
+import OwnPC from "./components/OwnPC";
 
 const App = () => {
   return (
     <Router>
       <div style={styles.container}>
-        <h1>메인페이지</h1>
-        <nav style={styles.navbar}>
-          <ul>
-            <li>
-              <Link to="/own-pc" style={styles.link}>
-                상세보기 (커스텀 PC)
-              </Link>
-            </li>
-            <li>
-              <Link to="/suggested-pc" style={styles.link}>
-                추천 완본체 (추천 PC)
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
         <Routes>
           <Route path="/own-pc" element={<OwnPC />} />
           <Route path="/suggested-pc" element={<SuggestedPC />} />
