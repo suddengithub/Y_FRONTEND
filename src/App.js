@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import StepwisePCCustomizing from "./components/OwnPCCustomization";
+import OwnPCCustomization from "./components/OwnPCCustomization";
 import SuggestedPC from "./components/SuggestedPC";
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
         </nav>
 
         <Routes>
-          <Route path="/own-pc" element={<StepwisePCCustomizing />} />
+          <Route path="/own-pc" element={<OwnPCCustomization />} />
           <Route path="/suggested-pc" element={<SuggestedPC />} />
         </Routes>
       </div>
