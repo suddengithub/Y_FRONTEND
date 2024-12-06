@@ -6,7 +6,7 @@ const SuggestedPC = () => {
   const [selectedPC, setSelectedPC] = useState(null); // 선택된 PC
   const [cart, setCart] = useState([]); // 장바구니
   const [currentStep, setCurrentStep] = useState(0); // 현재 단계
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // 구매하기 버튼 누르면 OrderSuccess.jsx 페이지로 전환
 
   // 가격 포맷 (원화, 3자리마다 쉼표)
   const formatPrice = (price) => {

@@ -5,7 +5,7 @@ const OwnPC = () => {
   const [currentStep, setCurrentStep] = useState(0); // 현재 단계
   const [selectedParts, setSelectedParts] = useState({}); // 선택된 부품
   const [cart, setCart] = useState([]); // 장바구니 상태
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // 구매하기 버튼 누르면 Order.jsx 페이지로 전환
 
   // 가격 포맷 (원화, 3자리마다 쉼표)
   const formatPrice = (price) => {
