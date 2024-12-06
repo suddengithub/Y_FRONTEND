@@ -1,24 +1,35 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-
 import SuggestedPC from "./components/SuggestedPC";
 import OwnPC from "./components/OwnPC";
+import Order from "./components/Order";
+import OrderSuccess from "./components/OrderSuccess";
 
 const App = () => {
   return (
     <Router>
       <div style={styles.container}>
-        <h1>메인페이지</h1>
+        <h1>페이지</h1>
         <nav style={styles.navbar}>
           <ul>
             <li>
               <Link to="/own-pc" style={styles.link}>
-                상세보기 (커스텀 PC)
+                커스텀PC
               </Link>
             </li>
             <li>
               <Link to="/suggested-pc" style={styles.link}>
-                추천 완본체 (추천 PC)
+                추천PC
+              </Link>
+            </li>
+            <li>
+              <Link to="/order" style={styles.link}>
+                구매
+              </Link>
+            </li>
+            <li>
+              <Link to="/order-success" style={styles.link}>
+                구매완료
               </Link>
             </li>
           </ul>
@@ -27,6 +38,8 @@ const App = () => {
         <Routes>
           <Route path="/own-pc" element={<OwnPC />} />
           <Route path="/suggested-pc" element={<SuggestedPC />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
         </Routes>
       </div>
     </Router>
