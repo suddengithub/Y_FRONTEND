@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Order = () => {
@@ -9,13 +9,13 @@ const Order = () => {
         name: "Product A",
         quantity: 1,
         price: 100,
-        options: "Color: Red, Size: M",
+        options: "색상: 빨강, 사이즈: M",
       },
       {
         name: "Product B",
         quantity: 2,
         price: 200,
-        options: "Color: Blue, Size: L",
+        options: "색상: 파랑, 사이즈: L",
       },
     ],
     shippingCost: 0,
@@ -28,7 +28,7 @@ const Order = () => {
     cardNumber: "",
     expiryDate: "",
     cvv: "",
-    paymentMethod: "Credit Card",
+    paymentMethod: "신용카드", // 기본 결제 수단
   });
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -39,7 +39,7 @@ const Order = () => {
     city: "",
     postalCode: "",
     country: "",
-    shippingMethod: "Standard",
+    shippingMethod: "일반 배송", // 기본 배송 방법
   });
 
   const [message, setMessage] = useState("");
@@ -61,6 +61,15 @@ const Order = () => {
     }));
   };
 
+  useEffect(() => {
+    calculateTotal();
+  }, [
+    orderSummary.items,
+    orderSummary.shippingCost,
+    orderSummary.tax,
+    orderSummary.discount,
+  ]);
+
   // 결제 정보 핸들러
   const handlePaymentChange = (e) => {
     const { name, value } = e.target;
@@ -81,7 +90,7 @@ const Order = () => {
 
   // 결제 처리
   const handlePlaceOrder = () => {
-    navigate("/order-success");
+    // 결제 정보 및 배송 정보 입력 확인
     if (
       !paymentInfo.cardNumber ||
       !paymentInfo.expiryDate ||
@@ -95,7 +104,11 @@ const Order = () => {
       return;
     }
     setMessage("결제 중입니다...");
+
+    // 결제 API 호출 (신용카드 PG사, 계좌이체, TOSS 등)
     setTimeout(() => {
+      // 결제 성공 후 페이지 이동
+      navigate("/order-success");
       setMessage("주문이 완료되었습니다!");
     }, 2000); // 2초 후 주문 완료 메시지
   };
@@ -112,21 +125,21 @@ const Order = () => {
             <li key={index} style={styles.listItem}>
               <p>{item.name}</p>
               <p>수량: {item.quantity}</p>
-              <p>가격: ${item.price}</p>
+              <p>가격: ₩{item.price}</p>
               <p>옵션: {item.options}</p>
             </li>
           ))}
         </ul>
         <p style={styles.summary}>
-          소계: $
+          소계: ₩
           {orderSummary.items.reduce(
             (sum, item) => sum + item.price * item.quantity,
             0
           )}
         </p>
-        <p>배송비: ${orderSummary.shippingCost}</p>
-        <p>세금: ${orderSummary.tax}</p>
-        <p>총액: ${orderSummary.total}</p>
+        <p>배송비: ₩{orderSummary.shippingCost}</p>
+        <p>세금: ₩{orderSummary.tax}</p>
+        <p>총액: ₩{orderSummary.total}</p>
       </section>
 
       {/* 결제 정보 (Payment Information) */}
@@ -139,11 +152,12 @@ const Order = () => {
           onChange={handlePaymentChange}
           style={styles.select}
         >
-          <option value="Credit Card">신용카드</option>
+          <option value="신용카드">신용카드</option>
           <option value="PayPal">PayPal</option>
-          <option value="Bank Transfer">계좌 이체</option>
+          <option value="계좌이체">계좌이체</option>
+          <option value="TOSS">TOSS</option>
         </select>
-        {paymentInfo.paymentMethod === "Credit Card" && (
+        {paymentInfo.paymentMethod === "신용카드" && (
           <div>
             <label>카드 번호:</label>
             <input
@@ -174,6 +188,7 @@ const Order = () => {
             />
           </div>
         )}
+        {/* 다른 결제 수단에 대한 추가 입력 폼을 여기 추가 */}
       </section>
 
       {/* 배송 정보 (Shipping Information) */}
@@ -249,15 +264,15 @@ const Order = () => {
           onChange={handleShippingChange}
           style={styles.select}
         >
-          <option value="Standard">일반 배송</option>
-          <option value="Fast">빠른 배송</option>
+          <option value="일반 배송">일반 배송</option>
+          <option value="빠른 배송">빠른 배송</option>
         </select>
       </section>
 
       {/* 결제 버튼 */}
       <section style={styles.section}>
         <button onClick={handlePlaceOrder} style={styles.button}>
-          결제
+          결제하기
         </button>
         {message && <p style={styles.message}>{message}</p>}
       </section>
