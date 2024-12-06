@@ -6,16 +6,16 @@ const Order = () => {
   const [orderSummary, setOrderSummary] = useState({
     items: [
       {
-        name: "Product A",
+        name: "A",
         quantity: 1,
         price: 100,
-        options: "색상: 빨강, 사이즈: M",
+        options: "a",
       },
       {
-        name: "Product B",
+        name: "A",
         quantity: 2,
         price: 200,
-        options: "색상: 파랑, 사이즈: L",
+        options: "a",
       },
     ],
     shippingCost: 0,
@@ -38,8 +38,6 @@ const Order = () => {
     address: "",
     city: "",
     postalCode: "",
-    country: "",
-    shippingMethod: "일반 배송", // 기본 배송 방법
   });
 
   const [message, setMessage] = useState("");
@@ -117,6 +115,56 @@ const Order = () => {
     <div style={styles.container}>
       <h1 style={styles.header}>주문 페이지</h1>
 
+      {/* 배송 정보 (Shipping Information) */}
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>배송 정보</h2>
+        <label>이름:</label>
+        <input
+          type="text"
+          name="name"
+          value={shippingInfo.name}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+        <label>연락처:</label>
+        <input
+          type="text"
+          name="phone"
+          value={shippingInfo.phone}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+        <label>이메일:</label>
+        <input
+          type="email"
+          name="email"
+          value={shippingInfo.email}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+        <label>주소:</label>
+        <input
+          type="text"
+          name="address"
+          value={shippingInfo.address}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+        <label>우편번호:</label>
+        <input
+          type="text"
+          name="postalCode"
+          value={shippingInfo.postalCode}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+      </section>
+
       {/* 주문 요약 (Order Summary) */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>주문 요약</h2>
@@ -138,7 +186,6 @@ const Order = () => {
           )}
         </p>
         <p>배송비: ₩{orderSummary.shippingCost}</p>
-        <p>세금: ₩{orderSummary.tax}</p>
         <p>총액: ₩{orderSummary.total}</p>
       </section>
 
@@ -189,84 +236,6 @@ const Order = () => {
           </div>
         )}
         {/* 다른 결제 수단에 대한 추가 입력 폼을 여기 추가 */}
-      </section>
-
-      {/* 배송 정보 (Shipping Information) */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>배송 정보</h2>
-        <label>이름:</label>
-        <input
-          type="text"
-          name="name"
-          value={shippingInfo.name}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>연락처:</label>
-        <input
-          type="text"
-          name="phone"
-          value={shippingInfo.phone}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>이메일:</label>
-        <input
-          type="email"
-          name="email"
-          value={shippingInfo.email}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>주소:</label>
-        <input
-          type="text"
-          name="address"
-          value={shippingInfo.address}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>도시:</label>
-        <input
-          type="text"
-          name="city"
-          value={shippingInfo.city}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>우편번호:</label>
-        <input
-          type="text"
-          name="postalCode"
-          value={shippingInfo.postalCode}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>국가:</label>
-        <input
-          type="text"
-          name="country"
-          value={shippingInfo.country}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
-        <label>배송 방법:</label>
-        <select
-          name="shippingMethod"
-          value={shippingInfo.shippingMethod}
-          onChange={handleShippingChange}
-          style={styles.select}
-        >
-          <option value="일반 배송">일반 배송</option>
-          <option value="빠른 배송">빠른 배송</option>
-        </select>
       </section>
 
       {/* 결제 버튼 */}
