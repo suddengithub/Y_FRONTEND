@@ -447,8 +447,8 @@ const SuggestedPC = () => {
                 style={styles.selectedPCImage}
               />
               <p>{`가격: ${formatPrice(selectedPC.price)}`}</p>
-              <p>{`MOTHERBOARD: ${selectedPC.motherboard}`}</p>
               <p>{`CPU: ${selectedPC.cpu}`}</p>
+              <p>{`MOTHERBOARD: ${selectedPC.motherboard}`}</p>
               <p>{`RAM: ${selectedPC.ram}`}</p>
               <p>{`VGA: ${selectedPC.vga}`}</p>
               <p>{`SSD: ${selectedPC.ssd}`}</p>
