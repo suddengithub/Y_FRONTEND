@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OwnPC = () => {
   const [currentStep, setCurrentStep] = useState(0); // 현재 단계
   const [selectedParts, setSelectedParts] = useState({}); // 선택된 부품
   const [cart, setCart] = useState([]); // 장바구니 상태
+  const navigate = useNavigate();
 
   // 가격 포맷 (원화, 3자리마다 쉼표)
   const formatPrice = (price) => {
@@ -276,6 +278,7 @@ const OwnPC = () => {
   const handleOrderNow = () => {
     alert("구매 페이지로 이동합니다.");
     // 구매 페이지로 이동하는 코드 작성 (예: 페이지 전환)
+    navigate("/order");
   };
 
   return (
