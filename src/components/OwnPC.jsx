@@ -273,7 +273,7 @@ const OwnPC = () => {
   // 선택된 부품 순서
   const selectedPartOrder = ["cpu", "motherboard", "ram", "vga", "ssd", "hdd"];
 
-  const handleBuyNow = () => {
+  const handleOrderNow = () => {
     alert("구매 페이지로 이동합니다.");
     // 구매 페이지로 이동하는 코드 작성 (예: 페이지 전환)
   };
@@ -398,7 +398,7 @@ const OwnPC = () => {
           <h3>
             전체 장바구니 총 가격: {formatPrice(calculateCartTotalPrice())}
           </h3>
-          <button onClick={handleBuyNow} style={styles.buyButton}>
+          <button onClick={handleOrderNow} style={styles.orderButton}>
             구매하기
           </button>
         </div>
@@ -512,7 +512,7 @@ const styles = {
     cursor: "pointer",
     backgroundColor: "none",
   },
-  buyButton: {
+  orderButton: {
     padding: "12px 20px",
     fontSize: "16px",
     backgroundColor: "#f4f4f4",
