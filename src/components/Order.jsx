@@ -25,8 +25,8 @@ const Order = () => {
   const navigate = useNavigate();
   const [orderSummary, setOrderSummary] = useState({
     items: [
-      { name: "A", quantity: 1, price: 100, options: "a" },
-      { name: "A", quantity: 2, price: 200, options: "a" },
+      { name: "A", quantity: 1, price: 100 },
+      { name: "A", quantity: 2, price: 200 },
     ],
     shippingCost: 0,
     discount: 0,
@@ -207,7 +207,6 @@ const Order = () => {
               <p>제품명: {item.name}</p>
               <p>수량: {item.quantity}</p>
               <p>가격: ₩{item.price}</p>
-              <p>옵션: {item.options}</p>
             </li>
           ))}
         </ul>
