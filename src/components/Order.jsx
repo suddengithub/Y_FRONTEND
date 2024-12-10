@@ -381,7 +381,7 @@ const styles = {
   maskBox: {
     padding: "10px",
     borderRadius: "5px",
-    marginLeft: "5px",
+    marginLeft: "-5px",
     marginBottom: " 10px",
   },
   select: {
