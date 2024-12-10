@@ -402,13 +402,16 @@ const styles = {
     marginTop: "10px",
   },
   button: {
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    padding: "15px 20px",
-    border: "none",
+    backgroundColor: "#f4f4f4",
+    color: "black",
+    border: "1px solid #ddd",
+
+    padding: "15px 30px",
+
     borderRadius: "5px",
-    fontSize: "16px",
     cursor: "pointer",
+    fontSize: "1.2em",
+    width: "100%",
   },
   message: {
     textAlign: "center",

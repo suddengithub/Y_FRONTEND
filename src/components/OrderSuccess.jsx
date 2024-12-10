@@ -15,30 +15,36 @@ const OrderSuccess = () => {
     <div style={styles.container}>
       <h1 style={styles.header}>주문 완료</h1>
 
-      {/* 주문 정보 섹션 */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>주문 정보</h2>
-        <p>주문 번호: {orderSummary?.orderId}</p>
-        <p>총액: ₩{orderSummary?.total}</p>
-      </section>
+      <div style={styles.card}>
+        {/* 주문 정보 섹션 */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>주문 정보</h2>
+          <p>주문 번호: {orderSummary?.orderId}</p>
+          <p>총액: ₩{orderSummary?.total}</p>
+        </section>
+      </div>
 
-      {/* 결제 정보 섹션 */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>결제 정보</h2>
-        <p>결제 수단: {paymentInfo?.paymentMethod}</p>
-        {paymentInfo?.paymentMethod === "신용카드" && (
-          <p>카드 번호: {maskCardNumber(paymentInfo.cardNumber)}</p>
-        )}
-        {paymentInfo?.paymentMethod === "TOSS" && <p>TOSS 결제 완료</p>}
-      </section>
+      <div style={styles.card}>
+        {/* 결제 정보 섹션 */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>결제 정보</h2>
+          <p>결제 수단: {paymentInfo?.paymentMethod}</p>
+          {paymentInfo?.paymentMethod === "신용카드" && (
+            <p>카드 번호: {maskCardNumber(paymentInfo.cardNumber)}</p>
+          )}
+          {paymentInfo?.paymentMethod === "TOSS" && <p>TOSS 결제 완료</p>}
+        </section>
+      </div>
 
-      {/* 배송 정보 섹션 */}
-      <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>배송 정보</h2>
-        <p>이름: {shippingInfo?.name}</p>
-        <p>연락처: {shippingInfo?.phone}</p>
-        <p>주소: {shippingInfo?.address}</p>
-      </section>
+      <div style={styles.card}>
+        {/* 배송 정보 섹션 */}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>배송 정보</h2>
+          <p>이름: {shippingInfo?.name}</p>
+          <p>연락처: {shippingInfo?.phone}</p>
+          <p>주소: {shippingInfo?.address}</p>
+        </section>
+      </div>
     </div>
   );
 };
@@ -46,24 +52,35 @@ const OrderSuccess = () => {
 // 스타일 객체
 const styles = {
   container: {
-    maxWidth: "800px",
-    margin: "30px auto",
+    maxWidth: "1000px",
+    margin: "20px auto",
     padding: "20px",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#fff",
     borderRadius: "8px",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
   },
   header: {
     textAlign: "center",
     color: "#333",
+    marginBottom: "40px",
+    fontSize: "2em",
+    fontWeight: "bold",
+  },
+  card: {
+    backgroundColor: "#fff",
     marginBottom: "20px",
+    padding: "20px",
+    borderRadius: "8px",
+    boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)",
+    transition: "box-shadow 0.3s",
   },
   section: {
     marginBottom: "20px",
   },
   sectionTitle: {
-    fontSize: "1.5em",
+    fontSize: "1.4em",
     color: "#333",
+    fontWeight: "600",
     marginBottom: "10px",
   },
 };
