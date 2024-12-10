@@ -6,6 +6,17 @@ const OrderSuccess = () => {
   const location = useLocation();
   const { orderSummary, paymentInfo, shippingInfo } = location.state || {};
 
+  // 주문 번호 생성 (오늘 날짜 + 현재시간 + 난수 코드)
+  const generateOrderNumber = () => {
+    const now = new Date();
+    const date = now.toISOString().split("T")[0].replace(/-/g, "");
+    const time = now.toTimeString().split(" ")[0].replace(/:/g, "");
+    const randomCode = Math.floor(1000 + Math.random() * 9000); // 1000부터 9999 사이의 난수 생성
+    return `${date}-${time}-${randomCode}`;
+  };
+  // 주문 번호 생성
+  const orderNumber = generateOrderNumber();
+
   // 카드 번호 중간 8자리를 마스킹하는 함수
   const maskCardNumber = (cardNumber) => {
     return cardNumber.replace(/\d(?=\d{4})/g, "*");
@@ -14,6 +25,11 @@ const OrderSuccess = () => {
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>주문 완료</h1>
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>주문 번호: {orderNumber}</h2>
+      </section>
+      <h1 style={styles.Header}>구매가 정상적으로 완료되었습니다.</h1>
+      <p style={styles.subHeader}>구매해주셔서 감사드립니다.</p>
 
       <div style={styles.card}>
         {/* 주문 정보 섹션 */}
@@ -51,6 +67,17 @@ const OrderSuccess = () => {
 
 // 스타일 객체
 const styles = {
+  Header: {
+    fontSize: "2rem",
+    fontWeight: "bold",
+    color: "#666",
+    marginBottom: "20px",
+  },
+  subHeader: {
+    fontSize: "1.2rem",
+    color: "#666",
+    marginBottom: "30px",
+  },
   container: {
     maxWidth: "1000px",
     margin: "20px auto",
