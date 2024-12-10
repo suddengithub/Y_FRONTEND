@@ -3,21 +3,21 @@ import { useNavigate } from "react-router-dom";
 
 // 카드 유형을 인식하는 함수
 const getCardType = (cardNumber) => {
-  const amexRegex = /^(34|37)/; // American Express는 34 또는 37로 시작
-  const shinhanRegex = /^3/; // Shinhan은 3으로 시작
-  const visaRegex = /^4/; // VISA는 4로 시작
-  const masterCardRegex = /^5/; // MasterCard는 5로 시작
+  const amexRegex = /^(34|37)/;
+  const shinhanRegex = /^3/;
+  const visaRegex = /^4/;
+  const masterCardRegex = /^5/;
 
   if (amexRegex.test(cardNumber)) {
-    return "American Express"; // American Express가 우선
+    return "American Express";
   } else if (shinhanRegex.test(cardNumber)) {
-    return "Shinhan"; // 그 다음 Shinhan 카드
+    return "Shinhan";
   } else if (visaRegex.test(cardNumber)) {
-    return "VISA"; // VISA
+    return "VISA";
   } else if (masterCardRegex.test(cardNumber)) {
-    return "MasterCard"; // MasterCard
+    return "MasterCard";
   } else {
-    return null; // 카드 유형을 인식할 수 없을 경우
+    return null;
   }
 };
 
@@ -25,18 +25,8 @@ const Order = () => {
   const navigate = useNavigate();
   const [orderSummary, setOrderSummary] = useState({
     items: [
-      {
-        name: "A",
-        quantity: 1,
-        price: 100,
-        options: "a",
-      },
-      {
-        name: "A",
-        quantity: 2,
-        price: 200,
-        options: "a",
-      },
+      { name: "A", quantity: 1, price: 100, options: "a" },
+      { name: "A", quantity: 2, price: 200, options: "a" },
     ],
     shippingCost: 0,
     discount: 0,
@@ -50,7 +40,7 @@ const Order = () => {
     expiryYear: "",
     CVC: "",
     password: "",
-    paymentMethod: "신용카드", // 기본 결제 수단
+    paymentMethod: "신용카드",
   });
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -93,11 +83,9 @@ const Order = () => {
 
   // 카드 번호 변경 처리
   const handleCardNumberChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // 숫자만 입력 가능
+    const value = e.target.value.replace(/\D/g, "");
     if (value.length <= 16) {
-      const formatted = value
-        .replace(/(\d{4})(?=\d)/g, "$1-") // 4글자마다 하이픈 추가
-        .trim();
+      const formatted = value.replace(/(\d{4})(?=\d)/g, "$1-").trim();
       setPaymentInfo((prevState) => ({
         ...prevState,
         cardNumber: formatted,
@@ -129,25 +117,31 @@ const Order = () => {
   // 결제 처리
   const handlePlaceOrder = () => {
     if (
-      !paymentInfo.cardNumber ||
-      !paymentInfo.expiryMonth ||
-      !paymentInfo.expiryYear ||
-      !paymentInfo.CVC
+      paymentInfo.paymentMethod === "신용카드" &&
+      (!paymentInfo.cardNumber ||
+        !paymentInfo.expiryMonth ||
+        !paymentInfo.expiryYear ||
+        !paymentInfo.CVC)
     ) {
       setMessage("결제 정보를 모두 입력해주세요.");
       return;
     }
+
     if (!shippingInfo.name || !shippingInfo.phone || !shippingInfo.address) {
       setMessage("배송 정보를 모두 입력해주세요.");
       return;
     }
+
     setMessage("결제 중입니다...");
 
-    // 결제 API 호출
-    setTimeout(() => {
-      navigate("/order-success");
-      setMessage("주문이 완료되었습니다!");
-    }, 2000); // 2초 후 주문 완료 메시지
+    // 주문 정보 및 결제 정보를 state로 전달
+    navigate("/order-success", {
+      state: {
+        orderSummary,
+        paymentInfo,
+        shippingInfo,
+      },
+    });
   };
 
   return (
@@ -210,7 +204,7 @@ const Order = () => {
         <ul style={styles.list}>
           {orderSummary.items.map((item, index) => (
             <li key={index} style={styles.listItem}>
-              <p>{item.name}</p>
+              <p>제품명: {item.name}</p>
               <p>수량: {item.quantity}</p>
               <p>가격: ₩{item.price}</p>
               <p>옵션: {item.options}</p>
@@ -370,57 +364,56 @@ const styles = {
     alignItems: "center",
   },
   slash: {
-    fontSize: "2em",
-    marginBottom: "20px",
-    alignSelf: "center",
+    fontSize: "1.5em",
+    padding: "0 10px",
   },
   passwordBox: {
     display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   maskBox: {
     padding: "10px",
     borderRadius: "5px",
-    marginLeft: "-5px",
-    marginBottom: " 10px",
   },
   select: {
-    width: "99%",
+    width: "100%",
     padding: "10px",
     marginBottom: "15px",
     border: "1px solid #ddd",
     borderRadius: "5px",
-  },
-  button: {
-    backgroundColor: "#4CAF50",
-    color: "white",
-    padding: "15px 30px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    fontSize: "1.2em",
-    width: "100%",
-  },
-  message: {
-    color: "#d9534f",
-    fontWeight: "bold",
-    textAlign: "center",
   },
   list: {
     listStyleType: "none",
     padding: "0",
   },
   listItem: {
+    borderBottom: "1px solid #eee",
     padding: "10px 0",
   },
   summary: {
+    fontSize: "1.2em",
     fontWeight: "bold",
+    marginBottom: "15px",
   },
   cardTypeBox: {
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
     marginTop: "10px",
+  },
+  button: {
+    backgroundColor: "#4CAF50",
+    color: "#fff",
+    padding: "15px 20px",
+    border: "none",
+    borderRadius: "5px",
+    fontSize: "16px",
+    cursor: "pointer",
+  },
+  message: {
+    textAlign: "center",
+    color: "red",
+    fontWeight: "bold",
   },
 };
 
