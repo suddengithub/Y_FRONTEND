@@ -77,13 +77,13 @@ const OrderSuccess = () => {
 
       <div style={styles.buttonContainer}>
         <button onClick={() => navigate("/")} style={styles.button}>
-          메인페이지로 돌아가기
+          메인페이지
         </button>
         <button onClick={() => navigate("/own-pc")} style={styles.button}>
-          커스텀PC 페이지로 돌아가기
+          커스텀PC 페이지
         </button>
         <button onClick={() => navigate("/suggested-pc")} style={styles.button}>
-          추천PC 페이지로 돌아가기
+          추천PC 페이지
         </button>
       </div>
     </div>

@@ -20,6 +20,7 @@ const getCardType = (cardNumber) => {
     return null; // 카드 유형을 인식할 수 없을 경우
   }
 };
+
 const Order = () => {
   const navigate = useNavigate();
   const [orderSummary, setOrderSummary] = useState({
@@ -45,8 +46,10 @@ const Order = () => {
 
   const [paymentInfo, setPaymentInfo] = useState({
     cardNumber: "",
-    expiryDate: "",
+    expiryMonth: "",
+    expiryYear: "",
     CVC: "",
+    password: "",
     paymentMethod: "신용카드", // 기본 결제 수단
   });
 
@@ -90,11 +93,16 @@ const Order = () => {
 
   // 카드 번호 변경 처리
   const handleCardNumberChange = (e) => {
-    const value = e.target.value;
-    setPaymentInfo((prevState) => ({
-      ...prevState,
-      cardNumber: value,
-    }));
+    const value = e.target.value.replace(/\D/g, ""); // 숫자만 입력 가능
+    if (value.length <= 16) {
+      const formatted = value
+        .replace(/(\d{4})(?=\d)/g, "$1-") // 4글자마다 하이픈 추가
+        .trim();
+      setPaymentInfo((prevState) => ({
+        ...prevState,
+        cardNumber: formatted,
+      }));
+    }
 
     const type = getCardType(value);
     setCardType(type);
@@ -122,7 +130,8 @@ const Order = () => {
   const handlePlaceOrder = () => {
     if (
       !paymentInfo.cardNumber ||
-      !paymentInfo.expiryDate ||
+      !paymentInfo.expiryMonth ||
+      !paymentInfo.expiryYear ||
       !paymentInfo.CVC
     ) {
       setMessage("결제 정보를 모두 입력해주세요.");
@@ -175,20 +184,20 @@ const Order = () => {
           style={styles.input}
           required
         />
-        <label>주소:</label>
-        <input
-          type="text"
-          name="address"
-          value={shippingInfo.address}
-          onChange={handleShippingChange}
-          style={styles.input}
-          required
-        />
         <label>우편번호:</label>
         <input
           type="text"
           name="postalCode"
           value={shippingInfo.postalCode}
+          onChange={handleShippingChange}
+          style={styles.input}
+          required
+        />
+        <label>주소:</label>
+        <input
+          type="text"
+          name="address"
+          value={shippingInfo.address}
           onChange={handleShippingChange}
           style={styles.input}
           required
@@ -247,8 +256,8 @@ const Order = () => {
               required
             />
             {cardType && (
-              <div>
-                <strong>카드 타입: </strong>
+              <div style={styles.cardTypeBox}>
+                <strong>카드 타입 : &nbsp; &nbsp;</strong>
                 <span>{cardType}</span>
                 <img
                   src={`/images/${cardType.toLowerCase()}.png`} // 예: "visa.png", "mastercard.png"
@@ -261,24 +270,32 @@ const Order = () => {
                 />
               </div>
             )}
-            {/*
-                Shinhan: 카드 번호가 3으로 시작 
-                VISA: 카드 번호가 4로 시작
-                MasterCard: 카드 번호가 5로 시작
-                American Express: 카드 번호가 34 또는 37로 시작
-                이 정보를 바탕으로, 입력된 카드 번호에 따라 적절한 카드를 구별할 수 있습니다. */}
 
-            <label>유효 기간 (MM/YY):</label>
-            <input
-              type="text"
-              name="expiryDate"
-              value={paymentInfo.expiryDate}
-              onChange={handlePaymentChange}
-              style={styles.input}
-              placeholder="MM/YY"
-              maxLength={5}
-              required
-            />
+            <label>유효 기간:</label>
+            <div style={styles.expiryBox}>
+              <input
+                type="text"
+                name="expiryMonth"
+                value={paymentInfo.expiryMonth}
+                onChange={handlePaymentChange}
+                style={{ ...styles.input, width: "48%" }}
+                placeholder="MM"
+                maxLength={2}
+                required
+              />
+              <div style={styles.slash}>/</div>
+              <input
+                type="text"
+                name="expiryYear"
+                value={paymentInfo.expiryYear}
+                onChange={handlePaymentChange}
+                style={{ ...styles.input, width: "48%" }}
+                placeholder="YY"
+                maxLength={2}
+                required
+              />
+            </div>
+
             <label>CVC:</label>
             <input
               type="text"
@@ -289,6 +306,20 @@ const Order = () => {
               maxLength={3}
               required
             />
+
+            <label>비밀번호:</label>
+            <div style={styles.passwordBox}>
+              <input
+                type="password"
+                name="password"
+                value={paymentInfo.password}
+                onChange={handlePaymentChange}
+                style={{ ...styles.input, width: "48%" }}
+                maxLength={2}
+                required
+              />
+              <span style={styles.maskBox}> ** </span>
+            </div>
           </div>
         )}
       </section>
@@ -331,6 +362,26 @@ const styles = {
     border: "1px solid #ddd",
     borderRadius: "5px",
   },
+  expiryBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  slash: {
+    fontSize: "2em",
+    marginBottom: "20px",
+    alignSelf: "center",
+  },
+  passwordBox: {
+    display: "flex",
+    alignItems: "center",
+  },
+  maskBox: {
+    padding: "10px",
+    borderRadius: "5px",
+    marginLeft: "5px",
+    marginBottom: " 10px",
+  },
   select: {
     width: "99%",
     padding: "10px",
@@ -362,6 +413,12 @@ const styles = {
   },
   summary: {
     fontWeight: "bold",
+  },
+  cardTypeBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "10px",
   },
 };
 
