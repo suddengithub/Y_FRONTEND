@@ -304,6 +304,7 @@ const Order = () => {
               onChange={handlePaymentChange}
               style={styles.input}
               maxLength={3}
+              placeholder="CVC를 입력하세요"
               required
             />
 
@@ -316,6 +317,7 @@ const Order = () => {
                 onChange={handlePaymentChange}
                 style={{ ...styles.input, width: "48%" }}
                 maxLength={2}
+                placeholder="비밀번호 앞자리 2글자를 입력하세요"
                 required
               />
               <span style={styles.maskBox}> ** </span>

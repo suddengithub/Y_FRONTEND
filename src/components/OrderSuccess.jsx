@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 const OrderSuccess = () => {
   const navigate = useNavigate();
 
-  // 주문 번호 생성 (오늘 날짜 + 현재시간 조합)
+  // 주문 번호 생성 (오늘 날짜 + 현재시간 + 난수 코드)
   const generateOrderNumber = () => {
     const now = new Date();
     const date = now.toISOString().split("T")[0].replace(/-/g, "");
     const time = now.toTimeString().split(" ")[0].replace(/:/g, "");
-    return `${date}-${time}`;
+    const randomCode = Math.floor(1000 + Math.random() * 9000); // 1000부터 9999 사이의 난수 생성
+    return `${date}-${time}-${randomCode}`;
   };
 
   // 더미 데이터 (배송지 정보, 결제 정보)
@@ -17,9 +18,8 @@ const OrderSuccess = () => {
     name: "AAA",
     phone: "010-1234-5678",
     email: "AAA@gmail.com",
-    address: "서울특별시 ",
-    city: "서울",
     postalCode: "12345",
+    address: "서울특별시 ",
   });
 
   const [paymentInfo, setPaymentInfo] = useState({
@@ -33,8 +33,7 @@ const OrderSuccess = () => {
   // 카드 번호 마스킹 함수
   const maskCardNumber = (cardNumber) => {
     const cardParts = cardNumber.split("-");
-    const maskedPart = cardParts[1] + "-" + cardParts[2]; // 중간 8자리 마스킹
-    return `${cardParts[0]}-****-****-${cardParts[3]}`;
+    return `${cardParts[0]}-****-****-${cardParts[3]}`; // 중간 8자리 마스킹
   };
 
   return (
@@ -58,10 +57,10 @@ const OrderSuccess = () => {
           <strong>이메일:</strong> {shippingInfo.email}
         </p>
         <p>
-          <strong>주소:</strong> {shippingInfo.address}
+          <strong>우편번호:</strong> {shippingInfo.postalCode}
         </p>
         <p>
-          <strong>우편번호:</strong> {shippingInfo.postalCode}
+          <strong>주소:</strong> {shippingInfo.address}
         </p>
       </section>
 
