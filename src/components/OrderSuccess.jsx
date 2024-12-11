@@ -89,6 +89,8 @@ const OrderSuccess = () => {
           <h2 style={styles.sectionTitle}>배송 정보</h2>
           <p>이름: {shippingInfo?.name}</p>
           <p>연락처: {shippingInfo?.phone}</p>
+          <p>이메일: {shippingInfo?.email}</p>
+          <p>우편번호: {shippingInfo?.postalCode}</p>
           <p>주소: {shippingInfo?.address}</p>
         </section>
       </div>
