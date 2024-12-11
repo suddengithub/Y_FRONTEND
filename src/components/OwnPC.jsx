@@ -275,7 +275,6 @@ const OwnPC = () => {
   // 선택된 부품 순서
   const selectedPartOrder = ["cpu", "motherboard", "ram", "vga", "ssd", "hdd"];
 
-  // Order 페이지로 상태 전송
   const handleOrderNow = () => {
     if (cart.length === 0) {
       alert("장바구니에 구성된 PC가 없습니다. 먼저 PC를 구성하세요.");
@@ -283,7 +282,6 @@ const OwnPC = () => {
     }
     navigate("/order", { state: { cart } }); // Pass cart state to Order page
   };
-
   return (
     <div style={styles.container}>
       <h1>단계별 커스텀 PC</h1>
