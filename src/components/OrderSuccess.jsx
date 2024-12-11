@@ -26,7 +26,11 @@ const OrderSuccess = () => {
 
   // 카드 번호 중간 8자리를 마스킹하는 함수
   const maskCardNumber = (cardNumber) => {
-    return cardNumber.replace(/\d(?=\d{4})/g, "*");
+    // 카드 번호가 16자리일 경우만 처리
+    if (cardNumber && cardNumber.length === 19) {
+      return cardNumber.slice(0, 4) + "-****-****-" + cardNumber.slice(15, 19);
+    }
+    return cardNumber; // 16자리가 아니면 원래 카드 번호 그대로 반환
   };
 
   // 상품 요약 생성 (e.g., "제품 A 외 3개")

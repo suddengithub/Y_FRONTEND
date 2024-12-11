@@ -411,8 +411,7 @@ const styles = {
   },
 
   pwdInput: {
-    marginLeft: "5px",
-    width: "2%",
+    width: "5%",
     padding: "10px",
     border: "1px solid #ddd",
     borderRadius: "5px",
@@ -423,8 +422,7 @@ const styles = {
     marginRight: "20px", // CVC와 간격
   },
   cvcInput: {
-    marginLeft: "5px",
-    width: "3%",
+    width: "5%",
     padding: "10px",
     border: "1px solid #ddd",
     borderRadius: "5px",
