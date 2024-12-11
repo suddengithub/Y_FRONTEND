@@ -53,11 +53,13 @@ const Order = () => {
       })),
       ...suggestedPCCart.map((pc, index) => ({
         configuration: `PC ${index + 1}`,
-        parts: Object.entries(pc).map(([category, part]) => ({
-          name: `${category.toUpperCase()} - ${part.name}`,
-          quantity: part.quantity,
-          price: part.price || 0, // Ensure price is always defined
-        })),
+        parts: [
+          {
+            name: `PC ${index + 1}`,
+            quantity: pc.quantity,
+            price: pc.price || 0, // Ensure price is always defined
+          },
+        ],
       })),
     ],
     shippingCost: 3000, // 배송비
