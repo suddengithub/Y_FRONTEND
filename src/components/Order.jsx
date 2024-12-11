@@ -343,13 +343,25 @@ const Order = () => {
               />
             </div>
 
+            <label>비밀번호:</label>
+            <input
+              type="text"
+              name="pwd"
+              value={paymentInfo.pwd}
+              onChange={handlePaymentChange}
+              style={styles.pwdInput}
+              maxLength={2}
+              required
+            />
+            <span style={styles.maskBox}>**</span>
+
             <label>CVC:</label>
             <input
               type="text"
               name="CVC"
               value={paymentInfo.CVC}
               onChange={handlePaymentChange}
-              style={styles.input}
+              style={styles.cvcInput}
               maxLength={3}
               required
             />
@@ -394,6 +406,24 @@ const styles = {
     width: "97%",
     padding: "10px",
     marginBottom: "15px",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+  },
+
+  pwdInput: {
+    width: "5%",
+    padding: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "5px",
+    marginRight: "10px", // 마스킹 박스와 간격
+  },
+  maskBox: {
+    marginLeft: "-5px",
+    marginRight: "20px", // CVC와 간격
+  },
+  cvcInput: {
+    width: "5%",
+    padding: "10px",
     border: "1px solid #ddd",
     borderRadius: "5px",
   },
