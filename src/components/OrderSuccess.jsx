@@ -99,7 +99,9 @@ const styles = {
     fontSize: "2rem",
     fontWeight: "bold",
     color: "#666",
-    marginBottom: "20px",
+    marginBottom: "30px",
+    textAlign: "center",
+    marginTop: "30px",
   },
   subHeader: {
     fontSize: "1.2rem",
