@@ -346,11 +346,11 @@ const SuggestedPC = () => {
     return cart.reduce((total, pc) => total + pc.price * pc.quantity, 0);
   };
   const handleOrderNow = () => {
-    if (cart.length === 0) {
-      alert("장바구니에 구성된 PC가 없습니다. 먼저 PC를 구성하세요.");
-      return;
+    if (cart.length > 0) {
+      navigate("/order", { state: { cart } }); // 장바구니 데이터를 함께 전달
+    } else {
+      alert("장바구니가 비어 있습니다.");
     }
-    navigate("/order", { state: { cart } }); // Pass cart state to Order page
   };
 
   return (
