@@ -128,7 +128,7 @@ const Order = () => {
     orderSummary.discount,
   ]);
 
-  // 카드 번호 변경 처리
+  // 카드 번호 변경 처리 (하이픈 기능)
   const handleCardNumberChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     if (value.length <= 16) {
@@ -143,7 +143,7 @@ const Order = () => {
     setCardType(type);
   };
 
-  // 연락처 입력 처리 함수 (하이픈 추가)
+  // 연락처 입력 처리 함수 (하이픈 기능)
   const handlePhoneChange = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // 숫자만 남기고 제거
     let formatted = value;
@@ -429,10 +429,11 @@ const styles = {
   },
 
   pwdInput: {
-    width: "5%",
+    width: "2%",
     padding: "10px",
     border: "1px solid #ddd",
     borderRadius: "5px",
+    marginLeft: "10px",
     marginRight: "10px", // 마스킹 박스와 간격
   },
   maskBox: {
@@ -440,10 +441,11 @@ const styles = {
     marginRight: "20px", // CVC와 간격
   },
   cvcInput: {
-    width: "5%",
+    width: "3%",
     padding: "10px",
     border: "1px solid #ddd",
     borderRadius: "5px",
+    marginLeft: "10px",
   },
   expiryBox: {
     display: "flex",
@@ -451,8 +453,9 @@ const styles = {
     alignItems: "center",
   },
   slash: {
-    fontSize: "1.5em",
-    padding: "0 10px",
+    fontSize: "2em",
+    marginBottom: "20px",
+    alignSelf: "center",
   },
   select: {
     width: "100%",
