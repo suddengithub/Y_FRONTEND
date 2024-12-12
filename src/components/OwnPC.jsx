@@ -231,6 +231,7 @@ const OwnPC = () => {
   const addToCart = () => {
     if (Object.keys(selectedParts).length === partsOptions.length) {
       setCart((prevCart) => [...prevCart, { ...selectedParts }]);
+      alert("커스텀 PC가 구성되었습니다!");
       setSelectedParts({}); // 선택된 부품 초기화
       setCurrentStep(0); // 초기화
     } else {

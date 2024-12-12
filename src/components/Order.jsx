@@ -450,12 +450,6 @@ const styles = {
     display: "flex",
     alignItems: "center",
   },
-  select: {
-    padding: "10px",
-    marginLeft: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ddd",
-  },
   pwdInput: {
     width: "2%",
     padding: "10px",
